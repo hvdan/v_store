@@ -8,4 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class ReceivedProduct extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'receipt_id',
+        'product_id',
+        'stock',
+        'stock_defective',
+    ];
+
+    public function receipt()
+    {
+        return $this->belongsTo(Receipt::class, 'receipt_id', 'id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::Class, 'product_id', 'id');
+    }
 }
