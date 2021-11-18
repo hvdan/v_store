@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend/home/index');
 });
 
 Auth::routes();
 
-Route::middleware('can:accessAdminpanel')->group(function() {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-});
+

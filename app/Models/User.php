@@ -24,10 +24,6 @@ class User extends Authenticatable
         'password',
     ];
 
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
-    }
 
     public function receipts()
     {
@@ -44,6 +40,11 @@ class User extends Authenticatable
         return $this->hasMany(Transaction::class, 'user_id','id');
     }
 
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_roles');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -53,6 +54,16 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function isAuthorized($object, $operation)
+    {
+        return Db::table('role_permissions')
+            ->where('object', $object)
+            ->where('operation', $operation)
+            ->join('user_roles', 'user_roles.role_id', '=', 'role_permissions.role_id')
+            ->where('user_roles.user_id', $this->id)
+            ->exists();
+    }
 
     /**
      * The attributes that should be cast.

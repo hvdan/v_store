@@ -25,13 +25,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('accessAdminpanel', function($user) {
-            return $user->role(['superadmin', 'admin']);
-        });
-
-        Gate::define('accessProfile', function($user) {
-            return $user->role('member');
-        });
+//        Gate::define('accessAdminpanel', function($user) {
+//            return $user->role_id(['superadmin', 'admin']);
+//        });
+//
+//        Gate::define('accessProfile', function($user) {
+//            return $user->role_id('member');
+//        });
 
 
     }
