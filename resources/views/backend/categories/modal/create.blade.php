@@ -22,10 +22,10 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button id="btn-store" type="button" class="btn btn-primary"
+                            <button type="button" class="btn btn-primary btn-create"
                                     data-href="{{ route('categories.store') }}">Save
                             </button>
-                            <button class="btn btn-secondary waves-effect" data-dismiss="modal" id="btn-store">Close</button>
+                            <button class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
                         </div>
                     </form>
                 </div>

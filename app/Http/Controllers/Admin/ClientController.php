@@ -3,10 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+
+use App\Models\Client;
 use Illuminate\Http\Request;
 
-class ProductCategoryController extends Controller
+class ClientController extends Controller
 {
+    protected $client;
+    public function __construct(Client $Client){
+        $this ->Client=$Client;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,9 +20,18 @@ class ProductCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $clients= $this->Client::paginate();
+        return view('backend.clients.index',compact('clients'));
     }
 
+    public function list()
+    {
+        $clients = $this->Client->latest()->paginate(5);
+
+        return view('backend.clients.tbl_client_result',
+            compact('clients')
+        );
+    }
     /**
      * Show the form for creating a new resource.
      *

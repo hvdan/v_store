@@ -48,8 +48,8 @@ function showErrorMessage(errors) {
 
 //result
 function resultSuccess(data) {
-    $("#tbl_product_result").empty();
-    $('#tbl_product_result').append(data);
+    $("#tbl_result").empty();
+    $('#tbl_result').append(data);
 }
 
 //reset form

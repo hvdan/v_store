@@ -9,6 +9,7 @@
             <div class="modal-body-main">
                 <div class="modal-body data-table">
                     <form id="form_update" enctype="multipart/form-data">
+                        @csrf
                         {!! method_field('PUT') !!}
 
                         <div class="box-body">

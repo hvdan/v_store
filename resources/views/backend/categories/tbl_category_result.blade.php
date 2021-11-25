@@ -19,8 +19,6 @@
                     <td>{{ $category->created_at }}</td>
                     <td>{{ $category->updated_at }}</td>
                     <td>
-                        <a href="">Detail</a>
-                        |
                         <button type="button" data-toggle="modal" data-href="{{ route('categories.edit',$category->id) }}"
                                 data-id="{{ $category->id }}"
                                 class="btn btn-success btn-edit btn-sm">Edit
@@ -40,5 +38,6 @@
             @endforelse
             </tbody>
         </table>
+        {{ $categories->links() }}
     </div>
 </div>

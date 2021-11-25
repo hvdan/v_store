@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\Category\CategoryRequest;
 use App\Models\ProductCategory;
 use App\Http\Controllers\Controller;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -15,6 +16,7 @@ class CategoryController extends Controller
     {
         $this->ProductCategory = $ProductCategory;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,20 +24,33 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories= $this->ProductCategory::paginate();
-        return view('backend.categories.index',compact('categories'));
 
+        return view('backend.categories.index');
     }
 
-    public function list()
+    public function data()
     {
-        $categories = $this->ProductCategory->latest()->paginate(5);
+        $categories = $this->ProductCategory::select(['id', 'name', 'created_at', 'updated_at']);
 
-        return view('backend.categories.tbl_category_result',
-            compact('categories')
-        );
+        return DataTables::of($categories->get())
+            ->addColumn('actions', function ($category) {
+                $button= '<button type="button" name ="edit" data-href='. route('categories.edit', $category->id) .' data-id=" .$category->id. " class="btn-edit border-0 bg-transparent" ><i class="lni lni-pencil-alt"></i></button>
+                <button type="button" data-href='. route('categories.delete', $category->id) .' data-id=" '.$category->id.' " class="btn-delete border-0 bg-transparent" ><i class="lni lni-trash-can"></i></button> ';
+                return $button;
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
     }
-        /**
+
+//    public function list()
+//    {
+//        $categories = $this->ProductCategory->latest()->paginate(5);
+//
+//        return view('backend.categories.tbl_category_result',
+//            compact('categories')
+//        );
+//    }
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -48,7 +63,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(CategoryRequest $request)
@@ -60,7 +75,7 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -71,7 +86,7 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -86,8 +101,8 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(CategoryRequest $request, $id)
@@ -100,7 +115,7 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -108,5 +123,10 @@ class CategoryController extends Controller
         $category = $this->ProductCategory->findOrFail($id);
         $category->delete();
 
+    }
+
+    public function search(Request $request)
+    {
+        //
     }
 }

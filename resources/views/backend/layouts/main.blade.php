@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{asset('backend/css/fullcalendar.css')}}"/>
     <link rel="stylesheet" href="{{asset('backend/css/fullcalendar.css')}}"/>
     <link rel="stylesheet" href="{{asset('backend/css/main.css')}}"/>
+    @yield('css')
 </head>
 <body>
 <!-- ======== sidebar-nav start =========== -->

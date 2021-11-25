@@ -97,8 +97,4 @@
 
 <!-- Template Javascript -->
 <script src="frontend/js/main.js"></script>
-<script>
-    $(document).ready(function (){
-        console.log('1234567');
-    });
-</script>
+
